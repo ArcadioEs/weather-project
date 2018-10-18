@@ -15,4 +15,4 @@ COPY --from=builder /go/src/github.com/weather-project/main /app/
 COPY --from=builder /go/src/github.com/weather-project/docs/api/api.yaml /app/
 CMD ["/main"]
 
-# EXPOSE 8017:8017
+EXPOSE 8017:8017
