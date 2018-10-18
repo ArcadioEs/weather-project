@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  title: Weather service API
+  version: "0.0.1"
+paths:
+  /weather/X:
+    get:
+      description: Gets weather for city X.
+      tags:
+        - weather
+      responses:
+        '200':
+          description: Weather retrieved succesfully.
+        '404':
+          description: City not found.

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-project
+  labels:
+    example: weather-project
+  annotations:
+    auth.istio.io/8017: NONE
+spec:
+  ports:
+  - name: http
+    port: 8017
+  selector:
+    example: weather-project
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: weather-project
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        example: weather-project
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      # replace the repository URL with your own repository (e.g. {DockerID}/weather-project:0.0.x for Docker Hub).
+      - image: 
+        imagePullPolicy: IfNotPresent
+        name: weather-project
+        ports:
+        - name: http
+          containerPort: 8017
+        env:
+        - name: dbtype
+          # available dbtypes are: [memory, mssql]
+          value: "memory"
